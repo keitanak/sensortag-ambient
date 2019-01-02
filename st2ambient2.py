@@ -131,9 +131,13 @@ class _SensorTag():
         MSG('send to Ambient ', dt.now().strftime("%Y/%m/%d %H:%M:%S"), ' for ', self.addr)
         MSG(data)
         if self.am:
-            ret = self.am.send(data)
-            MSG('sent to Ambient (ret: %d)' % ret.status_code, ' for ', self.addr)
-        sys.stdout.flush()
+            try:
+                ret = self.am.send(data)
+               MSG('sent to Ambient (ret: %d)' % ret.status_code, ' for ', self.addr)
+            except:
+               MSG('Could not sent')
+            finally:
+                sys.stdout.flush()
     def _reconnect(self):
         try:
             MSG('try to reconnect to ', self.addr)
