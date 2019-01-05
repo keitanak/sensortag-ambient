@@ -53,24 +53,24 @@ def main():
     if args.debug:
         logger.setLevel(logging.DEBUG)
     mode = GPIO.BCM if args.gpio_mode.upper() == 'BCM' else GPIO.BOARD
-        with SHT1x(args.data_pin, args.sck_pin, gpio_mode=mode, vdd=args.vdd, resolution=args.resolution,
-               heater=args.heater, otp_no_reload=args.otp_no_reload, crc_check=args.no_crc_check,
-               logger=logger) as sensor:
+    with SHT1x(args.data_pin, args.sck_pin, gpio_mode=mode, vdd=args.vdd, resolution=args.resolution,
+           heater=args.heater, otp_no_reload=args.otp_no_reload, crc_check=args.no_crc_check,
+           logger=logger) as sensor:
             
-    while True:
-        temp = sensor.read_temperature()
-        humidity = sensor.read_humidity(temp)
+        while True:
+            temp = sensor.read_temperature()
+            humidity = sensor.read_humidity(temp)
             
-        data = {}
-        data['d1'] = float(temp)  # set ambient temperature to d1
-        data['d2'] = float(humidity)  # set humidity to d2
+            data = {}
+            data['d1'] = float(temp)  # set ambient temperature to d1
+            data['d2'] = float(humidity)  # set humidity to d2
             
-        print(data)
-        r = am.send(data)
-        print(r.status_code)
-        sys.stdout.flush()
+            print(data)
+            r = am.send(data)
+            print(r.status_code)
+            sys.stdout.flush()
 
-        time.sleep(args.i)
+            time.sleep(args.i)
         # tag.waitForNotifications(arg.t)
 
 if __name__ == "__main__":
