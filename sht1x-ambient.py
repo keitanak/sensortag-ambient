@@ -72,7 +72,7 @@ def main():
         print(r.status_code)
         sys.stdout.flush()
 
-        time.sleep(arg.i)
+        time.sleep(args.i)
         # tag.waitForNotifications(arg.t)
 
 if __name__ == "__main__":
