@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # while True:
-#     SensorTagをスキャンし、見つけたデバイスに接続し、
-#     温度、湿度、気圧、照度、バッテリーレベルを取得し、Ambientに送信
+#     SHT1xから
+#     温度、湿度を取得し、Ambientに送信
 #
 import bluepy
 import time
