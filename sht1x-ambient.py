@@ -44,8 +44,7 @@ def main():
                         help='Used to enable OTP no reload, will save about 10ms per measurement.')
     parser.add_argument('-c', '--no-crc-check', action='store_false', help='Performs CRC checking.')
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug logging.')
-    parser.add_argument('-i',action='store',type=float, default=120.0, help='scan interval')
-    parser.add_argument('-t',action='store',type=float, default=5.0, help='scan time out')
+    parser.add_argument('-i',action='store',type=float, default=300.0, help='scan interval')
 
     args = parser.parse_args()
 
@@ -54,12 +53,11 @@ def main():
     if args.debug:
         logger.setLevel(logging.DEBUG)
     mode = GPIO.BCM if args.gpio_mode.upper() == 'BCM' else GPIO.BOARD
-    
-    while True:
-        
         with SHT1x(args.data_pin, args.sck_pin, gpio_mode=mode, vdd=args.vdd, resolution=args.resolution,
                heater=args.heater, otp_no_reload=args.otp_no_reload, crc_check=args.no_crc_check,
                logger=logger) as sensor:
+            
+    while True:
         temp = sensor.read_temperature()
         humidity = sensor.read_humidity(temp)
             
