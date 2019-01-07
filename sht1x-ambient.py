@@ -66,9 +66,14 @@ def main():
             data['d2'] = float(humidity)  # set humidity to d2
             
             print(data)
-            r = am.send(data)
-            print(r.status_code)
-            sys.stdout.flush()
+            if am:
+                try:
+                    r = am.send(data)
+                    print(r.status_code)
+                except:
+                    print('Could not sent')
+                finally:
+                    sys.stdout.flush()
 
             time.sleep(args.i)
         # tag.waitForNotifications(arg.t)
